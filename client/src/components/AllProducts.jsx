@@ -5,9 +5,6 @@ import axios from "axios";
 
 const AllProducts = (props) => {
     const {products, handleDelete} = props;
-    
-
-
 
     return (
         <div className="container w-50">

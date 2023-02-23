@@ -21,6 +21,19 @@ function App() {
         })
 }, []);
 
+  const handleUpdate = (id) => {
+    axios.get("http://localhost:8000/api/products/"+id)
+      .then((res) => {
+        setProducts(products.map((product, i) => {
+          if(id === product._id){
+            return res.data
+          }
+          return product
+        }))
+      }).catch(err=>{
+        console.log(err)
+      })
+  }
 
   const handleCreate = (product) => {
     axios.post("http://localhost:8000/api/products", product)
@@ -55,8 +68,8 @@ function App() {
           <hr />
           <AllProducts products={products} handleDelete={handleDelete}/>
         </>}/>
-        <Route path="/products/:id" element={<OneProduct/>}/>
-        <Route path="/products/:id/edit" element={<EditProduct/>}/>
+        <Route path="/products/:id" element={<OneProduct handleDelete={handleDelete}/>}/>
+        <Route path="/products/:id/edit" element={<EditProduct handleUpdate={handleUpdate} />}/>
       </Routes>
     </div>
   );

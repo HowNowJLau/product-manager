@@ -2,7 +2,8 @@ import {useState, useEffect} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EditProduct = () => {
+const EditProduct = (props) => {
+    const {handleUpdate} = props;
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
@@ -30,6 +31,7 @@ const EditProduct = () => {
         axios.put(`http://localhost:8000/api/products/${id}`, data, {new:true})
         .then (res => {
             console.log(res);
+            handleUpdate(id);
             navigate('/products');
         }).catch(err => {
             console.log(err);
